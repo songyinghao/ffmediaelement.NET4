@@ -13,7 +13,7 @@
     /// Provides a set of utilities to perfrom logging, text formatting, 
     /// conversion and other handy calculations.
     /// </summary>
-    public static class FFInterop
+    internal static class FFInterop
     {
         #region Private Declarations
 

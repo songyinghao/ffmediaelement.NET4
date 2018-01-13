@@ -147,7 +147,7 @@ namespace Unosquare.FFME.Rendering.Wave
             public static extern MmResult waveOutGetVolume(IntPtr hWaveOut, out int dwVolume);
 
             // http://msdn.microsoft.com/en-us/library/dd743857%28VS.85%29.aspx
-            [DllImport(WinMM, CharSet = CharSet.Ansi)]
+            [DllImport(WinMM, CharSet = CharSet.Auto)]
             public static extern MmResult waveOutGetDevCaps(IntPtr deviceID, out WaveOutCapabilities waveOutCaps, int waveOutCapsSize);
         }
     }

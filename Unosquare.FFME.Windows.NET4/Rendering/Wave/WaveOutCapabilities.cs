@@ -7,7 +7,7 @@
     /// WaveOutCapabilities structure (based on WAVEOUTCAPS2 from mmsystem.h)
     /// http://msdn.microsoft.com/library/default.asp?url=/library/en-us/multimed/htm/_win32_waveoutcaps_str.asp
     /// </summary>
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
     internal struct WaveOutCapabilities
     {
         private const int MaxProductNameLength = 32;

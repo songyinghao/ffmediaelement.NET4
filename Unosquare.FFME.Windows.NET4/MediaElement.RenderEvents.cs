@@ -43,7 +43,7 @@
         /// <param name="bitmap">The bitmap.</param>
         /// <param name="clock">The clock.</param>
         [MethodImpl(256)]
-        internal void RaiseRenderingVideoEvent(VideoBlock videoBlock, WriteableBitmap bitmap, TimeSpan clock)
+        internal void RaiseRenderingVideoEvent(VideoBlock videoBlock, BitmapDataBuffer bitmap, TimeSpan clock)
         {
             if (RenderingVideo == null) return;
 

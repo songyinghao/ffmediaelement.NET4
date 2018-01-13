@@ -71,6 +71,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\BitmapDataBuffer.cs" />
     <Compile Include="Events\ExceptionRoutedEventArgs.cs" />
     <Compile Include="Events\MediaLogMessageEventArgs.cs" />
     <Compile Include="Events\MediaOpeningRoutedEventArgs.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="MediaElement.RenderEvents.cs" />
     <Compile Include="MediaElement.RoutedEvents.cs" />
     <Compile Include="Platform\IGuiContext.cs" />
+    <Compile Include="Platform\SoundTouch.cs" />
     <Compile Include="Platform\WindowsMediaConnector.cs" />
     <Compile Include="Platform\WindowsNativeMethods.cs" />
     <Compile Include="Platform\WindowsPlatform.cs" />
@@ -104,8 +106,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Rendering\AudioRenderer.cs" />
-    <Compile Include="Rendering\SharedMemoryBitmap.cs" />
-    <Compile Include="Rendering\SoundTouch.cs" />
     <Compile Include="Rendering\SubtitleRenderer.cs" />
     <Compile Include="Rendering\VideoRenderer.cs" />
     <Compile Include="Rendering\Wave\IWaveProvider.cs" />
