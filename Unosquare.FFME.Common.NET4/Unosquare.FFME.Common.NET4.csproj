@@ -133,6 +133,7 @@
     <Compile Include="Decoding\SubtitleFrame.cs" />
     <Compile Include="Decoding\VideoComponent.cs" />
     <Compile Include="Decoding\VideoFrame.cs" />
+    <Compile Include="MediaEngine.BlockRenderingWorker.cs" />
     <Compile Include="MediaEngine.Connector.cs" />
     <Compile Include="MediaEngine.Controller.cs" />
     <Compile Include="MediaEngine.ControllerProperties.cs" />
@@ -144,8 +145,10 @@
     <Compile Include="Primitives\AtomicDouble.cs" />
     <Compile Include="Primitives\AtomicLong.cs" />
     <Compile Include="Primitives\CircularBuffer.cs" />
+    <Compile Include="Primitives\ISyncLocker.cs" />
     <Compile Include="Primitives\MediaBlockBuffer.cs" />
     <Compile Include="Primitives\MediaTypeDictionary.cs" />
+    <Compile Include="Primitives\SyncLockerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -160,7 +163,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Shared\AudioBlock.cs" />
-    <Compile Include="Shared\Defaults.cs" />
+    <Compile Include="Shared\Constants.cs" />
     <Compile Include="Shared\Extensions.cs" />
     <Compile Include="Shared\FFmpegLoadMode.cs" />
     <Compile Include="Shared\IMediaConnector.cs" />

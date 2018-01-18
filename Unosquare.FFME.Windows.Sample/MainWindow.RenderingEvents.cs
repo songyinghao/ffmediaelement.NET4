@@ -157,7 +157,7 @@
 
                 for (var i = 0; i < e.BufferLength; i += e.BitsPerSample / 8)
                 {
-                    samplePercent = 100d * Math.Abs((double)((short)(buffer[i] | (buffer[i + 1] << 8)))) / (double)short.MaxValue;
+                    samplePercent = 100d * Math.Abs((double)((short)(buffer[i] | (buffer[i + 1] << 8)))) / short.MaxValue;
 
                     if (isLeftSample)
                         leftSamples[sampleIndex] = samplePercent;
@@ -180,8 +180,8 @@
             Media.RenderingSubtitles += (s, e) =>
             {
                 // a simple example of suffixing subtitles
-                if (e.Text != null && e.Text.Count > 0)
-                    e.Text[0] = $"{e.Text[0]}\r\n(subtitles)";
+                if (e.Text != null && e.Text.Count > 0 && e.Text[e.Text.Count - 1] != "(subtitles)")
+                    e.Text.Add("(subtitles)");
             };
 
             #endregion

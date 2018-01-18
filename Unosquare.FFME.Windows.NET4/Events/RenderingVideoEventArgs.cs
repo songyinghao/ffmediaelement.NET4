@@ -4,7 +4,6 @@
     using Shared;
     using System;
     using System.Collections.Generic;
-    using System.Windows.Media.Imaging;
 
     /// <summary>
     /// The video rendering event arguments

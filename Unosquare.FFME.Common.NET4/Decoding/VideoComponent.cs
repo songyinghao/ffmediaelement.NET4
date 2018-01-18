@@ -10,7 +10,7 @@
     /// <summary>
     /// Performs video picture decoding, scaling and extraction logic.
     /// </summary>
-    /// <seealso cref="Unosquare.FFME.Decoding.MediaComponent" />
+    /// <seealso cref="MediaComponent" />
     internal sealed unsafe class VideoComponent : MediaComponent
     {
         #region Private State Variables
@@ -108,7 +108,7 @@
         /// <returns>
         /// Return the updated output frame
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">input</exception>
+        /// <exception cref="ArgumentNullException">input</exception>
         public override MediaBlock MaterializeFrame(MediaFrame input, ref MediaBlock output, List<MediaBlock> siblings)
         {
             if (output == null) output = new VideoBlock();
@@ -126,7 +126,7 @@
                 NormalizePixelFormat(source.Pointer),
                 source.Pointer->width,
                 source.Pointer->height,
-                Defaults.VideoPixelFormat,
+                Constants.Video.VideoPixelFormat,
                 ScalerFlags,
                 null,
                 null,
@@ -138,21 +138,21 @@
                 Scaler = newScaler;
                 RC.Current.Add(Scaler, $"311: {nameof(VideoComponent)}.{nameof(MaterializeFrame)}()");
             }
-            
+
             // Reassign to the new scaler and remove the reference to the existing one
             // The get cached context function automatically frees the existing scaler.
             if (Scaler != newScaler)
             {
                 RC.Current.Remove(Scaler);
                 Scaler = newScaler;
-            }            
+            }
 
             // Perform scaling and save the data to our unmanaged buffer pointer
             var targetBufferStride = ffmpeg.av_image_get_linesize(
-                Defaults.VideoPixelFormat, source.Pointer->width, 0);
+                Constants.Video.VideoPixelFormat, source.Pointer->width, 0);
             var targetStride = new int[] { targetBufferStride };
             var targetLength = ffmpeg.av_image_get_buffer_size(
-                Defaults.VideoPixelFormat, source.Pointer->width, source.Pointer->height, 1);
+                Constants.Video.VideoPixelFormat, source.Pointer->width, source.Pointer->height, 1);
 
             // Ensure proper allocation of the buffer
             // If there is a size mismatch between the wanted buffer length and the existing one,
@@ -200,7 +200,7 @@
             target.CodedPictureNumber = source.DisplayPictureNumber;
             target.ClosedCaptions = source.ClosedCaptions;
             target.BufferStride = targetStride[0];
-            
+
             target.PixelHeight = source.Pointer->height;
             target.PixelWidth = source.Pointer->width;
 
@@ -247,7 +247,7 @@
 
                 if (outputFrame->width <= 0 || outputFrame->height <= 0)
                 {
-                    // If we don't have a valid output frame simply release it and 
+                    // If we don't have a valid output frame simply release it and
                     // return the original input frame
                     RC.Current.Remove(outputFrame);
                     ffmpeg.av_frame_free(&outputFrame);

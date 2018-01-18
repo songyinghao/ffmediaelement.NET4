@@ -112,7 +112,7 @@
         {
             // Global FFmpeg message handler
             FFME.MediaElement.FFmpegMessageLogged += MediaElement_FFmpegMessageLogged;
-            
+
             // MediaElement event bindings
             Media.PositionChanged += Media_PositionChanged;
             Media.MediaOpened += Media_MediaOpened;
@@ -131,11 +131,11 @@
             Loaded += MainWindow_Loaded;
             UrlTextBox.Text = HistoryItems.Count > 0 ? HistoryItems.First() : string.Empty;
 
-            /*
-             * Media.ScrubbingEnabled = false;
-             * Media.LoadedBehavior = MediaState.Pause;
-             */
+            // If you don't want to show the first frame upon loading.
+            // Media.ScrubbingEnabled = false;
+            // Media.LoadedBehavior = MediaState.Pause;
 
+            // Open a file if it is specified in the arguments
             var args = Environment.GetCommandLineArgs();
             if (args != null && args.Length > 1)
             {
@@ -173,9 +173,15 @@
 
             var togglePlayPauseKeys = new[] { Key.Play, Key.MediaPlayPause, Key.Space };
 
-            window.PreviewKeyDown += (s, e) =>
+            window.PreviewKeyDown += async (s, e) =>
             {
-                if (e.OriginalSource is TextBox) return;
+                // Console.WriteLine($"KEY: {e.Key}, SRC: {e.OriginalSource?.GetType().Name}");
+                if (e.OriginalSource is TextBox)
+                    return;
+
+                // Keep the key focus on the main window
+                FocusManager.SetIsFocusScope(this, true);
+                FocusManager.SetFocusedElement(this, this);
 
                 // Pause
                 if (togglePlayPauseKeys.Contains(e.Key) && Media.IsPlaying)
@@ -194,14 +200,14 @@
                 // Seek to left
                 if (e.Key == Key.Left)
                 {
-                    if (Media.IsPlaying) PauseCommand.Execute();
+                    if (Media.IsPlaying) await Media.Pause();
                     Media.Position -= Media.FrameStepDuration;
                 }
 
                 // Seek to right
                 if (e.Key == Key.Right)
                 {
-                    if (Media.IsPlaying) PauseCommand.Execute();
+                    if (Media.IsPlaying) await Media.Pause();
                     Media.Position += Media.FrameStepDuration;
                 }
 

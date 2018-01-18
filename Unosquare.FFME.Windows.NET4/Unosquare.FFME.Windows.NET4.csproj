@@ -107,6 +107,7 @@
     </Compile>
     <Compile Include="Rendering\AudioRenderer.cs" />
     <Compile Include="Rendering\SubtitleRenderer.cs" />
+    <Compile Include="Rendering\SubtitleTextBlock.cs" />
     <Compile Include="Rendering\VideoRenderer.cs" />
     <Compile Include="Rendering\Wave\IWaveProvider.cs" />
     <Compile Include="Rendering\Wave\MmResult.cs" />

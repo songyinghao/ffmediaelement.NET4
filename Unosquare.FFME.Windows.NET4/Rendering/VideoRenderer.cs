@@ -17,7 +17,7 @@
     /// <summary>
     /// Provides Video Image Rendering via a WPF Writable Bitmap
     /// </summary>
-    /// <seealso cref="Unosquare.FFME.Shared.IMediaRenderer" />
+    /// <seealso cref="IMediaRenderer" />
     internal sealed class VideoRenderer : IMediaRenderer
     {
         #region Private State
@@ -71,8 +71,8 @@
             MediaCore = mediaEngine;
 
             // Check that the renderer supports the passed in Pixel format
-            if (MediaPixelFormats.ContainsKey(Defaults.VideoPixelFormat) == false)
-                throw new NotSupportedException($"Unable to get equivalent pixel fromat from source: {Defaults.VideoPixelFormat}");
+            if (MediaPixelFormats.ContainsKey(Constants.Video.VideoPixelFormat) == false)
+                throw new NotSupportedException($"Unable to get equivalent pixel fromat from source: {Constants.Video.VideoPixelFormat}");
 
             // Set the DPI
             WindowsPlatform.Instance.Gui?.Invoke(DispatcherPriority.Normal, () =>
@@ -218,7 +218,7 @@
             WindowsPlatform.Instance.Gui?.Invoke(DispatcherPriority.Render, () =>
             {
                 TargetBitmap = null;
-                MediaElement.ViewBox.Source = null;
+                MediaElement.VideoView.Source = null;
             });
         }
 
@@ -276,7 +276,7 @@
                 if ((needsCreation || needsModification) && hasValidDimensions)
                 {
                     TargetBitmap = new WriteableBitmap(
-                        block.PixelWidth, block.PixelHeight, DpiX, DpiY, MediaPixelFormats[Defaults.VideoPixelFormat], null);
+                        block.PixelWidth, block.PixelHeight, DpiX, DpiY, MediaPixelFormats[Constants.Video.VideoPixelFormat], null);
                 }
                 else if (hasValidDimensions == false)
                 {
@@ -284,8 +284,8 @@
                 }
 
                 // Update the target ViewBox image if not already set
-                if (MediaElement.ViewBox.Source != TargetBitmap)
-                    MediaElement.ViewBox.Source = TargetBitmap;
+                if (MediaElement.VideoView.Source != TargetBitmap)
+                    MediaElement.VideoView.Source = TargetBitmap;
 
                 // Don't set the result
                 if (TargetBitmap == null) return;
@@ -315,7 +315,7 @@
             }
             else
             {
-                var format = MediaPixelFormats[Defaults.VideoPixelFormat];
+                var format = MediaPixelFormats[Constants.Video.VideoPixelFormat];
                 var bytesPerPixel = format.BitsPerPixel / 8;
                 var copyLength = (uint)Math.Min(target.Stride, source.BufferStride);
                 Parallel.For(0, source.PixelHeight, (i) =>
@@ -334,7 +334,7 @@
         [MethodImpl(256)]
         private void ApplyScaleTransform(VideoBlock b)
         {
-            var scaleTransform = MediaElement.ViewBox.LayoutTransform as ScaleTransform;
+            var scaleTransform = MediaElement.VideoView.LayoutTransform as ScaleTransform;
 
             // Process Aspect Ratio according to block.
             if (b.AspectWidth != b.AspectHeight)
@@ -345,7 +345,7 @@
                 if (scaleTransform == null)
                 {
                     scaleTransform = new ScaleTransform(scaleX, scaleY);
-                    MediaElement.ViewBox.LayoutTransform = scaleTransform;
+                    MediaElement.VideoView.LayoutTransform = scaleTransform;
                 }
 
                 if (scaleTransform.ScaleX != scaleX || scaleTransform.ScaleY != scaleY)

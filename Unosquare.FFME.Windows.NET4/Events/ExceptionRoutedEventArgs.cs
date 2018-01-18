@@ -6,6 +6,9 @@ using System.Windows;
 
 namespace Unosquare.FFME.Events
 {
+
+    #region ExceptionRoutedEventArgs
+
     /// <summary>
     /// Holds the error event arguments for media failed events from a MediaElement.
     /// Since other MediaFailed events from the MediaClock or MediaTimeline are not
@@ -42,4 +45,5 @@ namespace Unosquare.FFME.Events
         private Exception _errorException;
     };
 
+    #endregion
 }
